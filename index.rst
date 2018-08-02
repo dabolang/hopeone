@@ -19,6 +19,8 @@ Contents:
    protobuf-data-structure
    examples-for-transaction-submission
    methods-of-submitting-transactions
+   protobuf-data-structure/data-structure
+   protobuf-data-structure/examples
    test
 
 Indices and tables
