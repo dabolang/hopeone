@@ -11,17 +11,14 @@ Contents:
 .. toctree::
    :maxdepth: 2
    
-   Overview
-   Terminology
-   Schematic Diagram
-   Generating Private Keys
-   Generating Public Keys
-   Generating Addresses
-   Signing Transactions
-   Methods of Submitting Transactions
-   generating-transaction-blobs-by-calling-the-interface
-   generating-transactionblobs-by-yourself
+   README
+   SUMMARY
+   generating-addresses
+   generating-private-key
+   generating-public-key
+   protobuf-data-structure
    examples-for-transaction-submission
+   methods-of-submitting-transactions
    test
 
 Indices and tables
