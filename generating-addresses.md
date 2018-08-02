@@ -42,5 +42,13 @@ Table 3
 | Checksum | After performing SHA256 calculation twice on the byte array obtained in step 3, take the first 4 bytes of the operation result | 4 Bytes |
 <!--endtable-->
 
+<!--table-->
+| Tables        | Are           | Cool  |
+| ------------- |-------------- | ----- |
+| col 3 is      | nifty         | $1600 |
+| col 2 is      | awesome       |   $12 |
+| zebra stripes | are neat      |    $1 |
+<!--endtable-->
+
 This table illustrates the Prefix, Version and Checksum used in generating the address.
 
