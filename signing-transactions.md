@@ -5,7 +5,9 @@ The following example shows how to sign the  transaction_blob with ED25519 and t
 
 The private key:
 
-'''b00115764cd017e0da753271fa26cd529451a21b8253d001f0d43612e19ec632570a74ab166b'''
+'''
+b00115764cd017e0da753271fa26cd529451a21b8253d001f0d43612e19ec632570a74ab166b
+'''
 
 The transaction_blob:
 
