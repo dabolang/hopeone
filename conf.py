@@ -13,9 +13,6 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 # At top on conf.py (with other import statements)
-import recommonmark
-from recommonmark.parser import CommonMarkParser
-from recommonmark.transform import AutoStructify
 
 import sys
 import os
@@ -355,12 +352,4 @@ source_parsers = {
        '.md': CommonMarkParser,
 }
 
-# At the bottom of conf.py
-def setup(app):
-    app.add_config_value('recommonmark_config', {
-        'url_resolver': lambda url: github_doc_root + url,
-        'auto_toc_tree_section': 'Contents',
-        'enable_eval_rst': True,
-        'enable_auto_doc_ref': True,
-    }, True)
-    app.add_transform(AutoStructify)
+
