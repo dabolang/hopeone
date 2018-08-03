@@ -13,6 +13,16 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 # At top on conf.py (with other import statements)
+import sys
+from unittest.mock import MagicMock
+
+class Mock(MagicMock):
+    @classmethod
+    def __getattr__(cls, name):
+        return MagicMock()
+
+sphinx_markdown_tables = ['pygtk', 'gtk', 'gobject', 'argparse', 'numpy', 'pandas']
+sys.modules.update((mod_name, Mock()) for mod_name in sphinx_markdown_tables)
 
 import sys
 import os
