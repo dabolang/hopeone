@@ -33,13 +33,16 @@ _buQmWJrdYJP5CPKTbkQUqscwvTGaU44dord8_
 > **Note**: Now the address is generated.
 
 Table 3
+
 <!--table-->
+
 | Name | Data | Length |
 | --- | --- | --- |
 | Prefix | 0x01 0x56 | 2 Bytes |
 | Version | 0x01 | 1 Byte |
 | PublicKey | Take the last 20 bytes in raw public key | 20 Bytes |
 | Checksum | After performing SHA256 calculation twice on the byte array obtained in step 3, take the first 4 bytes of the operation result | 4 Bytes |
+
 <!--endtable-->
 
 <!--table-->
@@ -68,6 +71,19 @@ Table 3
   </tr>
 </table>
 
+**Some commands in `less`**
+ | key     | action |
+| ------- | ---------- |
+| "space" | to go forward |
+|  "b"    | to go backwarsd |
+|  "g"    | to go to the beginning |
+|  "G"    | to go to the end |
+|  "q"    | to quit |
+* "space": go forward
+* "b": go backward
+* "g": go to the beginning
+* "G": go to the end
+* "q":  quit
 
 This table illustrates the Prefix, Version and Checksum used in generating the address.
 
