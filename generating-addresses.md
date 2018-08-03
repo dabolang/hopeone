@@ -72,6 +72,7 @@ Table 3
 </table>
 
 **Some commands in `less`**
+
  | key     | action |
 | ------- | ---------- |
 | "space" | to go forward |
