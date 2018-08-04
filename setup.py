@@ -35,4 +35,3 @@ setup(
         'Source': 'https://github.com/ryanfox/sphinx-markdown-tables/',
     },
 )
-
