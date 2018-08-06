@@ -114,3 +114,12 @@ Grid table:
 | body row 2 | Cells may span columns.| 
 +------------+------------+-----------+ 
 ```
+```
+<!--table-->
+| Tables        | Are           | Cool  |
+| ------------- |-------------- | ----- |
+| col 3 is      | nifty         | $1600 |
+| col 2 is      | awesome       |   $12 |
+| zebra stripes | are neat      |    $1 |
+<!--endtable-->
+```
