@@ -8,7 +8,7 @@ BUMO JAVA SDK 指南
 使开发者能够更方便地操作和查询BU区块链。
 
 
-checkValid-1_
+:ref:`checkValid-1`
 
 术语
 ----
