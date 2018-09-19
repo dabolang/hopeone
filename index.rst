@@ -30,7 +30,7 @@ Contents:
    protobuf-data-structure/data-structure
    protobuf-data-structure/examples
    test
-   Bumo Java SDK 指南
+   BUMO JAVA SDK 指南
 
 Indices and tables
 ==================
