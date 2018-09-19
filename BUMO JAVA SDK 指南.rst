@@ -7,6 +7,9 @@ BUMO JAVA SDK 指南
 本文档对Bumo Java SDK常用的接口进行了详细说明,
 使开发者能够更方便地操作和查询BU区块链。
 
+
+checkvalid '<_checkvalid-1>_'
+
 术语
 ----
 
