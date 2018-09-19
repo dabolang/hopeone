@@ -12,6 +12,10 @@ bumo_java_sdk
 checkValid-1_
 'checkValid <#checkValid>'__
 
+
+.. tip::
+So this is the test file
+
 术语
 ----
 
