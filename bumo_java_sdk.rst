@@ -9,6 +9,8 @@ bumo_java_sdk
 
 
 :ref:`checkValid-1`
+checkValid-1_
+
 
 术语
 ----
