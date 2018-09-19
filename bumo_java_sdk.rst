@@ -10,7 +10,7 @@ bumo_java_sdk
 
 :ref:`checkValid-1`
 checkValid-1_
-
+'checkValid <#checkValid-1>'__
 
 术语
 ----
