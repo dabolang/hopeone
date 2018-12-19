@@ -8,3 +8,304 @@ BUMO NODEJS SDK 指南
 
 术语
 ----
+本章节对该文档中使用到的术语进行了详细说明。
+
+**操作BU区块链** 
+
+操作BU区块链是指向BU区块链写入或修改数据。
+
+**广播交易**
+
+广播交易是指向BU区块链发送交易，触发交易的执行。
+
+**查询BU区块链** 
+
+查询BU区块链是指查询BU区块链中的数据。
+
+**账户服务** 
+
+账户服务提供了账户相关的有效性校验与查询接口。
+
+**资产服务** 
+
+资产服务提供了资产相关的查询接口。
+
+
+**交易服务**
+
+交易服务提供了写入与查询BU区块链的接口。
+
+**区块服务** 
+
+区块服务提供了区块的查询接口。
+
+**账户nonce值** 
+
+账户 nonce 值用于标识用户提交交易时交易执行的顺序，每个账户都维护一个 nonce 序列号。
+
+请求参数与响应数据格式
+--------------------
+
+本章节将详细介绍请求参数与响应数据的格式。
+
+请求参数
+~~~~~~~~
+
+为了保证数字精度，请求参数中的 Number 类型，都按字符串处理。例如，amount = 500， 那么传递参数时将其更改为 amount = '500' 的字符串形式。
+
+响应数据
+~~~~~~~~
+
+接口的响应数据为 ``JavaScript`` 对象，数据格式如下：
+
+::
+
+
+ {
+	errorCode: 0,
+	errorDesc: '',
+	result: {}
+ }
+
+.. note:: 
+          - errorCode: 错误码。0表示无错误，大于0表示有错误。
+
+          - errorDesc: 错误描述。 
+
+          - result: 返回结果。
+
+ 因响应数据结构固定，方便起见，后续接口说明中的响应数据均指 result 对象的属性。
+
+
+使用方法
+--------
+
+本章节介绍SDK的使用流程。首先需要生成SDK实例，然后调用相应服务的接口。服务包括 `账户服务`_、`资产服务`_、`合约服务`_、`交易服务`_、`区块服务`_。接口按用途分为生成公私钥地址接口、有效性校验接口、查询接口、广播交易相关接口。
+
+安装SDK
+~~~~~~~
+
+使用SDK之前先通过以下方式安装BUMO SDK：
+
+::
+
+ npm install bumo-sdk --save
+
+
+生成SDK实例
+~~~~~~~~~~~
+
+生成SDK实例时的传入参数 options 是一个对象，options 包含如下参数：
+
++---------+--------+------------------------------+
+| 参数    | 类型   | 描述                         |
++=========+========+==============================+
+| host    | String | ip地址:端口                  |
++---------+--------+------------------------------+
+
+
+实例如下：
+
+::
+ 
+ const BumoSDK = require('bumo-sdk');
+
+ const options = {
+  host: 'seed1.bumotest.io:26002',
+ };
+
+ const sdk = new BumoSDK(options);
+
+信息查询
+~~~~~~~~
+
+查询接口用于查询BU区块链上的数据，直接调用相应的接口即可实现。比如查询账户信息，具体调用如下所示：
+
+::
+
+ const address = 'buQemmMwmRQY1JkcU7w3nhruo%X5N3j6C29uo';
+
+ sdk.account.getInfo(address).then(info=> {
+  console.log(info);
+ }).catch(err => {
+  console.log(err.message);
+ });
+
+
+
+提交交易
+~~~~~~~~
+
+提交交易的过程包括以下几步：
+
+`1. 获取账户nonce值`_
+
+`2. 构建操作`_
+
+`3. 构建交易Blob`_
+
+`4. 签名交易`_
+
+`5. 广播交易`_
+
+1. 获取账户nonce值
+^^^^^^^^^^^^^^^^^^
+
+开发者可自己维护各个账户 nonce，在提交完一个交易后，nonce 值自动递增1，这样可以在短时间内发送多笔交易；否则，必须等上一个交易执行完成后，账户的 nonce 值才会加1。接口调用如下：
+
+::
+
+ const address = 'buQemmMwmRQY1JkcU7w3nhruo%X5N3j6C29uo';
+
+ sdk.account.getNonce(address).then(info => {
+
+  if (info.errorCode !== 0) {
+    console.log(info);
+    return;
+  }
+
+  const nonce = new BigNumber(info.result.nonce).plus(1).toString(10);
+ });
+
+ // 本例中使用了big-number.js 将nonce的值加1，并返回字符串类型
+
+2. 构建操作
+^^^^^^^^^^^
+
+这里的操作是指在交易中做的一些动作。例如：构建发送 BU 操作 BUSendOperation，调用如下:
+
+::
+
+ const destAddress = 'buQWESXjdgXSFFajEZfkwi5H4fuAyTGgzkje';
+
+ const info = sdk.operation.buSendOperation({
+	destAddress,
+	amount: '60000',
+	metadata: '746573742073656e64206275',
+ });
+
+3. 构建交易Blob
+^^^^^^^^^^^^^^^
+
+构建交易 Blob 接口用于生成交易 Blob 串，接口调用如下：
+
+::
+
+  let blobInfo = sdk.transaction.buildBlob({
+    sourceAddress: 'buQnc3AGCo6ycWJCce516MDbPHKjK7ywwkuo',
+    gasPrice: '3000',
+    feeLimit: '1000',
+    nonce: '102',
+    operations: [ sendBuOperation ],
+    metadata: '74657374206275696c6420626c6f62',
+  });
+
+  const blob = blobInfo.result;
+
+.. note:: nonce、gasPrice、feeLimit 是只能包含数字的字符串且不能以0开头。
+
+4. 签名交易
+^^^^^^^^^^^
+
+签名交易接口用于交易发起者使用私钥对交易进行签名。接口调用如下：
+
+::
+
+   const signatureInfo = sdk.transaction.sign({
+    privateKeys: [ privateKey ],
+    blob,
+  });
+
+  const signature = signatureInfo.result;
+
+5. 广播交易
+^^^^^^^^^^^
+
+广播交易接口用于向 BU 区块链发送交易，触发交易的执行。接口调用如下：
+
+::
+
+   sdk.transaction.submit({
+    blob,
+    signature: signature,
+  }).then(data => {
+  	console.log(data);
+  });
+
+账户服务
+--------
+
+账户服务主要是账户相关的接口，包括：``create``、``checkValid``、``getInfo-Account``、``getNonce``、
+``getBalance``、``getAssets``、``GetMetadata``。
+
+create
+~~~~~~
+
+``create`` 接口用于生成私钥及地址。
+
+调用方法如下：
+
+::
+
+ sdk.account.create()
+
+响应数据如下表：
+
++------------+--------+------+
+| 参数       | 类型   | 描述 |
++============+========+======+
+| privateKey | String | 私钥 |
++------------+--------+------+
+| publicKey  | String | 公钥 |
++------------+--------+------+
+| address    | String | 地址 |
++------------+--------+------+
+
+具体示例如下所示：
+
+::
+
+ sdk.account.create().then(result => {
+  console.log(result);
+ }).catch(err => {
+  console.log(err.message);
+ });
+
+
+checkValid
+~~~~~~~~~~
+
+``checkValid`` 接口用于检测账户地址的有效性。
+
+调用方法如下：
+
+::
+
+ sdk.account.checkValid(address)
+
+请求参数如下表：
+
++---------+--------+------------------------------+
+| 参数    | 类型   | 描述                         |
++=========+========+==============================+
+| address | String | 待检测的账户地址             |
++---------+--------+------------------------------+
+
+响应数据如下表：
+
++---------+--------+------------------------------+
+| 参数    | 类型   | 描述                         |
++=========+========+==============================+
+| isValid | Boolean| 账户地址是否有效             |
++---------+--------+------------------------------+
+
+错误码如下表：
+
++--------------+--------+--------------+
+| 错误信息     | 错误码 | 描述         |
++==============+========+==============+
+| SYSTEM_ERROR | 20000  | System error |
++--------------+--------+--------------+
+
+具体示例如下所示：
+
