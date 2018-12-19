@@ -31,6 +31,7 @@ Contents:
    protobuf-data-structure/examples
    test
    bumo_java_sdk
+   newrstfile
 
 Indices and tables
 ==================
