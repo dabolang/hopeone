@@ -655,8 +655,10 @@ Object 的参数
   console.log(data);
  });
 
+.. _Metadata-1:
 
-**Object 的参数**
+Object 的参数
+^^^^^^^^^^^^^^^
 
 ``getInfo-Asset`` 接口请求参数 args 为 Object 类型，其中包含如下参数：
 
